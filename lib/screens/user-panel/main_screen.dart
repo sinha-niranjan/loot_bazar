@@ -1,5 +1,5 @@
-// ignore: file_names
 import 'package:flutter/material.dart';
+import '../../utils/app_constant.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -8,8 +8,9 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.amber ,
-        title: Text('heading'),
+        backgroundColor: AppConstant.appMainColor,
+        title: Text(AppConstant.appMainName),
+        centerTitle: true,
       ),
     );
   }
