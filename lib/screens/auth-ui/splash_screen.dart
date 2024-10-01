@@ -1,7 +1,10 @@
+// ignore_for_file: unused_import
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loot_bazar/screens/auth-ui/welcome_screen.dart';
 import 'package:loot_bazar/screens/user-panel/main_screen.dart';
 import 'package:loot_bazar/utils/app_constant.dart';
 import 'package:lottie/lottie.dart';
@@ -18,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 5), () {
-      Get.offAll(() => const MainScreen());
+      Get.offAll(() => const WelcomeScreen());
     });
   }
 
