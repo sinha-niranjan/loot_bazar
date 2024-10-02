@@ -84,7 +84,7 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                   onPressed: () {},
                   label: const Text(
-                    'Sign in with google',
+                    'Sign in with Email',
                     style: TextStyle(color: AppConstant.appTextColor),
                   ),
                 ),

@@ -4,6 +4,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loot_bazar/screens/auth-ui/sign_in_screen.dart';
+import 'package:loot_bazar/screens/auth-ui/sign_up_screen.dart';
 import 'package:loot_bazar/screens/auth-ui/welcome_screen.dart';
 import 'package:loot_bazar/screens/user-panel/main_screen.dart';
 import 'package:loot_bazar/utils/app_constant.dart';
@@ -21,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 5), () {
-      Get.offAll(() => const WelcomeScreen());
+      Get.offAll(() => const SignInScreen());
     });
   }
 
