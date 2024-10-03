@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:loot_bazar/controllers/google_sign_in_controller.dart';
+import 'package:loot_bazar/screens/auth-ui/sign_in_screen.dart';
 import 'package:lottie/lottie.dart';
+
 import '../../utils/app_constant.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -88,7 +89,9 @@ class WelcomeScreen extends StatelessWidget {
                       color: AppConstant.appTextColor,
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.to(() => const SignInScreen());
+                  },
                   label: const Text(
                     'Sign in with Email',
                     style: TextStyle(color: AppConstant.appTextColor),

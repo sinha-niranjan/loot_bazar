@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:loot_bazar/screens/auth-ui/welcome_screen.dart';
+
 import '../../utils/app_constant.dart';
 
 class MainScreen extends StatelessWidget {
@@ -12,22 +14,27 @@ class MainScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppConstant.appMainColor,
-        title: Text(AppConstant.appMainName),
+        title: Text(
+          AppConstant.appMainName,
+          style: const TextStyle(
+            color: AppConstant.appWhiteColor,
+          ),
+        ),
         centerTitle: true,
         actions: [
           GestureDetector(
             onTap: () async {
               GoogleSignIn googleSignIn = GoogleSignIn();
+              FirebaseAuth auth = FirebaseAuth.instance;
 
+              await auth.signOut();
               await googleSignIn.signOut();
-              Get.offAll(() => WelcomeScreen());
+              Get.off(() => WelcomeScreen());
             },
             child: const Padding(
                 padding: EdgeInsets.all(8.0),
-                child: Icon(
-                  Icons.logout,
-                  size: 35,
-                )),
+                child: Icon(Icons.logout,
+                    size: 35, color: AppConstant.appWhiteColor)),
           )
         ],
       ),
