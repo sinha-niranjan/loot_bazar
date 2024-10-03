@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "261751806849",
+    "project_id": "loot-bazaar-51965",
+    "storage_bucket": "loot-bazaar-51965.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:261751806849:android:5d3dd95826c8ae4ec5e680",
+        "android_client_info": {
+          "package_name": "com.example.loot_bazar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDz-s2zgjqYxWM6FgJY_v1jUrnjiGWTsZc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
