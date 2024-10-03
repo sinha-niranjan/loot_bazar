@@ -38,14 +38,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: Get.height / 20,
                 ),
                 Container(
-                    alignment: Alignment.center,
-                    child: const Text(
-                      "Welcome to Loot Bazaar",
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: AppConstant.appMainColor),
-                    )),
+                  alignment: Alignment.center,
+                  child: const Text(
+                    "Welcome to Loot Bazaar",
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: AppConstant.appMainColor),
+                  ),
+                ),
+                SizedBox(
+                  height: Get.height / 25,
+                ),
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 5.0),
                   width: Get.width,
