@@ -5,10 +5,9 @@ import 'package:loot_bazar/utils/app_constant.dart';
 
 class SignInController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  
 
   // for password visibility
-  var isPasswordVisible = false.obs;
+  var isPasswordVisible = true.obs;
 
   Future<UserCredential?> signInModel(
     String userEmail,
@@ -16,9 +15,8 @@ class SignInController extends GetxController {
   ) async {
     try {
       EasyLoading.show(status: "Please wait... ");
-      UserCredential userCredential =
-          await _auth.signInWithEmailAndPassword(
-              email: userEmail, password: userPassword);
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+          email: userEmail, password: userPassword);
 
       EasyLoading.dismiss();
       Get.snackbar(
@@ -30,7 +28,8 @@ class SignInController extends GetxController {
       );
       return userCredential;
     } on FirebaseAuthException catch (e) {
-      Get.snackbar("Error", "$e",
+      EasyLoading.dismiss();
+      Get.snackbar("Error", "invalid credentials $e",
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: AppConstant.appRedColor,
           colorText: AppConstant.appWhiteColor);

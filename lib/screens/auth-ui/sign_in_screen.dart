@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
 import 'package:loot_bazar/controllers/sign_in_controller.dart';
+import 'package:loot_bazar/screens/auth-ui/forget_password_screen.dart';
 import 'package:loot_bazar/screens/auth-ui/sign_up_screen.dart';
 import 'package:loot_bazar/screens/user-panel/main_screen.dart';
 import 'package:loot_bazar/utils/app_constant.dart';
@@ -113,11 +114,16 @@ class _SignInScreenState extends State<SignInScreen> {
                 Container(
                   alignment: Alignment.centerRight,
                   margin: const EdgeInsets.only(right: 15),
-                  child: const Text(
-                    "Forget Password?",
-                    style: TextStyle(
-                        color: AppConstant.appRedColor,
-                        fontWeight: FontWeight.bold),
+                  child: GestureDetector(
+                    onTap: () {
+                      Get.to(() => const ForgetPasswordScreen());
+                    },
+                    child: const Text(
+                      "Forget Password?",
+                      style: TextStyle(
+                          color: AppConstant.appRedColor,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
                 SizedBox(
