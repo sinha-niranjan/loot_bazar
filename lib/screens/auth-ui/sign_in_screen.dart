@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:get/get.dart';
@@ -171,7 +170,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                     ),
                                   ));
 
-                              Get.offAll(() => MainScreen());
+                              Get.offAll(() => const MainScreen());
                             } else {
                               Get.snackbar("Error", "",
                                   snackPosition: SnackPosition.BOTTOM,
