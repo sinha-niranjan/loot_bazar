@@ -139,7 +139,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       width: Get.width / 50,
                     ),
                     GestureDetector(
-                      onTap: () => Get.offAll(() => const SignUpScreen()),
+                      onTap: () => Get.off(() => const SignUpScreen()),
                       child: const Text(
                         "Sign Up?",
                         style: TextStyle(

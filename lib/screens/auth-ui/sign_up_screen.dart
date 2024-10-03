@@ -216,7 +216,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 colorText: AppConstant.appWhiteColor);
 
                             FirebaseAuth.instance.signOut();
-                            Get.offAll(() => const SignInScreen());
+                            Get.off(() => const SignInScreen());
                           }
                         }
                       },
@@ -239,7 +239,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       width: Get.width / 50,
                     ),
                     GestureDetector(
-                      onTap: () => Get.offAll(() => const SignInScreen()),
+                      onTap: () => Get.off(() => const SignInScreen()),
                       child: const Text(
                         "Sign In?",
                         style: TextStyle(

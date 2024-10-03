@@ -25,7 +25,7 @@ class MainScreen extends StatelessWidget {
               GoogleSignIn googleSignIn = GoogleSignIn();
 
               await googleSignIn.signOut();
-              Get.offAll(() => WelcomeScreen());
+              Get.off(() => WelcomeScreen());
             },
             child: const Padding(
                 padding: EdgeInsets.all(8.0),

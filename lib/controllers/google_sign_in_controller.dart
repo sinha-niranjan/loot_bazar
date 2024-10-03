@@ -53,7 +53,7 @@ class GoogleSignInController extends GetxController {
               .set(userModel.toMap());
 
           EasyLoading.dismiss();
-          Get.offAll(() => const MainScreen());
+          Get.off(() => const MainScreen());
         }
       }
     } catch (e) {
