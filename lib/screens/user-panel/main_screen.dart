@@ -12,7 +12,12 @@ class MainScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppConstant.appMainColor,
-        title: Text(AppConstant.appMainName),
+        title: Text(
+          AppConstant.appMainName,
+          style: const TextStyle(
+            color: AppConstant.appWhiteColor,
+          ),
+        ),
         centerTitle: true,
         actions: [
           GestureDetector(
@@ -24,10 +29,8 @@ class MainScreen extends StatelessWidget {
             },
             child: const Padding(
                 padding: EdgeInsets.all(8.0),
-                child: Icon(
-                  Icons.logout,
-                  size: 35,
-                )),
+                child: Icon(Icons.logout,
+                    size: 35, color: AppConstant.appWhiteColor)),
           )
         ],
       ),
