@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:loot_bazar/controllers/google_sign_in_controller.dart';
 import 'package:lottie/lottie.dart';
 import '../../utils/app_constant.dart';
 
 class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({super.key});
+  WelcomeScreen({super.key});
 
+  final GoogleSignInController _googleSignInController =
+      Get.put(GoogleSignInController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +56,9 @@ class WelcomeScreen extends StatelessWidget {
                       height: Get.width / 12,
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    _googleSignInController.signInWithGoogle();
+                  },
                   label: const Text(
                     'Sign in with google',
                     style: TextStyle(color: AppConstant.appTextColor),
