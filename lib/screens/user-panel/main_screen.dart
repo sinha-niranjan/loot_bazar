@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:loot_bazar/widgets/banner_widget.dart';
 import 'package:loot_bazar/widgets/custom_drawer_widget.dart';
 
 import '../../utils/app_constant.dart';
@@ -21,6 +23,23 @@ class MainScreen extends StatelessWidget {
             const IconThemeData(color: AppConstant.appWhiteColor, size: 30),
       ),
       drawer: const DrawerWidget(),
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Container(
+          color: AppConstant.appBackgroundColor,
+          height: Get.height,
+          child: Column(
+            children: [
+              SizedBox(
+                height: Get.height / 90,
+              ),
+
+              //banner
+              const BannerWidget()
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
