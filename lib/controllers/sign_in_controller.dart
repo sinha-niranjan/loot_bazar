@@ -19,13 +19,7 @@ class SignInController extends GetxController {
           email: userEmail, password: userPassword);
 
       EasyLoading.dismiss();
-      Get.snackbar(
-        "Success",
-        "Verification email sent",
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: AppConstant.appMainColor,
-        colorText: AppConstant.appWhiteColor,
-      );
+
       return userCredential;
     } on FirebaseAuthException catch (e) {
       EasyLoading.dismiss();

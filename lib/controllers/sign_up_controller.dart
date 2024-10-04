@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:loot_bazar/controllers/get_device_token_controller.dart';
 import 'package:loot_bazar/models/user_model.dart';
 import 'package:loot_bazar/utils/app_constant.dart';
 
@@ -13,14 +14,17 @@ class SignUpController extends GetxController {
   var isPasswordVisible = true.obs;
 
   Future<UserCredential?> signUpMethod(
-      String userName,
-      String userEmail,
-      String userPhone,
-      String userCity,
-      String userPassword,
-      String userDeviceToken) async {
+    String userName,
+    String userEmail,
+    String userPhone,
+    String userCity,
+    String userPassword,
+  ) async {
     try {
       EasyLoading.show(status: "Please wait... ");
+      final GetDeviceTokenController getDeviceTokenController =
+          Get.put(GetDeviceTokenController());
+
       UserCredential userCredential =
           await _auth.createUserWithEmailAndPassword(
               email: userEmail, password: userPassword);
@@ -34,7 +38,7 @@ class SignUpController extends GetxController {
         email: userEmail,
         phone: userPhone,
         userImg: '',
-        userDeviceToken: userDeviceToken,
+        userDeviceToken: getDeviceTokenController.deviceToken.toString(),
         country: '',
         userAddress: '',
         street: '',
@@ -61,6 +65,7 @@ class SignUpController extends GetxController {
       );
       return userCredential;
     } on FirebaseAuthException catch (e) {
+      EasyLoading.dismiss();
       Get.snackbar("Error", "$e",
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: AppConstant.appRedColor,
