@@ -1,8 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:loot_bazar/screens/auth-ui/welcome_screen.dart';
+import 'package:loot_bazar/widgets/banner_widget.dart';
+import 'package:loot_bazar/widgets/custom_drawer_widget.dart';
 
 import '../../utils/app_constant.dart';
 
@@ -20,23 +19,26 @@ class MainScreen extends StatelessWidget {
             color: AppConstant.appWhiteColor,
           ),
         ),
-        centerTitle: true,
-        actions: [
-          GestureDetector(
-            onTap: () async {
-              GoogleSignIn googleSignIn = GoogleSignIn();
-              FirebaseAuth auth = FirebaseAuth.instance;
+        iconTheme:
+            const IconThemeData(color: AppConstant.appWhiteColor, size: 30),
+      ),
+      drawer: const DrawerWidget(),
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Container(
+          color: AppConstant.appBackgroundColor,
+          height: Get.height,
+          child: Column(
+            children: [
+              SizedBox(
+                height: Get.height / 90,
+              ),
 
-              await auth.signOut();
-              await googleSignIn.signOut();
-              Get.off(() => WelcomeScreen());
-            },
-            child: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Icon(Icons.logout,
-                    size: 35, color: AppConstant.appWhiteColor)),
-          )
-        ],
+              //banner
+              const BannerWidget()
+            ],
+          ),
+        ),
       ),
     );
   }
