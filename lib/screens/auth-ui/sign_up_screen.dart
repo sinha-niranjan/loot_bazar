@@ -185,7 +185,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         String phone = userPhone.text.trim();
                         String city = userCity.text.trim();
                         String password = userPassword.text.trim();
-                        String userDeviceToken = '';
 
                         if (name.isEmpty ||
                             email.isEmpty ||
@@ -205,8 +204,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ));
                         } else {
                           UserCredential? userCredential =
-                              await signUpController.signUpMethod(name, email,
-                                  phone, city, password, userDeviceToken);
+                              await signUpController.signUpMethod(
+                            name,
+                            email,
+                            phone,
+                            city,
+                            password,
+                          );
 
                           if (userCredential != null) {
                             Get.snackbar("verification email sent",
