@@ -26,6 +26,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return KeyboardVisibilityBuilder(builder: (context, isKeyboardVisible) {
       return Scaffold(
         appBar: AppBar(
+          iconTheme: const IconThemeData(color: AppConstant.appWhiteColor),
           elevation: 0,
           centerTitle: false,
           backgroundColor: AppConstant.appMainColor,
