@@ -18,6 +18,7 @@ class _BannerWidgetState extends State<BannerWidget> {
   final BannersController _bannersController = Get.put(BannersController());
   @override
   Widget build(BuildContext context) {
+    // ignore: avoid_unnecessary_containers
     return Container(
       child: Obx(() {
         return CarouselSlider(
@@ -30,7 +31,9 @@ class _BannerWidgetState extends State<BannerWidget> {
                       width: Get.width - 10,
                       placeholder: (context, url) => const ColoredBox(
                         color: AppConstant.appWhiteColor,
-                        child: Center(child: CupertinoActivityIndicator()),
+                        child: Center(
+                          child: CupertinoActivityIndicator(),
+                        ),
                       ),
                       errorWidget: (context, url, error) =>
                           const Icon(Icons.error),
@@ -38,10 +41,11 @@ class _BannerWidgetState extends State<BannerWidget> {
                   ))
               .toList(),
           options: CarouselOptions(
-              scrollDirection: Axis.horizontal,
-              autoPlay: true,
-              aspectRatio: 2,
-              viewportFraction: 1),
+            scrollDirection: Axis.horizontal,
+            autoPlay: true,
+            aspectRatio: 2,
+            viewportFraction: 1,
+          ),
         );
       }),
     );
