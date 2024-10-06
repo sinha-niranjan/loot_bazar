@@ -60,7 +60,9 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                     );
                     return ProductWidget(
                         categoryImage: categoriesModel.categoryImage,
-                        categoryName: categoriesModel.categoryName);
+                        categoryName: categoriesModel.categoryName,
+                        height: 7,
+                        width: 3);
                   }),
             );
           }

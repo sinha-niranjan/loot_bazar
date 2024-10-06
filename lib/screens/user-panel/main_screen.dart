@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loot_bazar/screens/user-panel/all_categories_screen.dart';
 import 'package:loot_bazar/widgets/banner_widget.dart';
 import 'package:loot_bazar/widgets/category_widget.dart';
 import 'package:loot_bazar/widgets/custom_drawer_widget.dart';
@@ -46,7 +47,7 @@ class MainScreen extends StatelessWidget {
                 headingTitle: "Categories",
                 headingSubTitle: "According to your budget",
                 buttonText: "See More >> ",
-                onTap: () {},
+                onTap: () => Get.to(() => AllCategoriesScreen()),
               ),
               const CategoryWidget(),
               HeadingWidget(
