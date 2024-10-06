@@ -28,7 +28,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
           }
 
           if (snapShot.connectionState == ConnectionState.waiting) {
-            return Container(
+            return SizedBox(
               height: Get.height / 5,
               child: const Center(
                 child: CupertinoActivityIndicator(),

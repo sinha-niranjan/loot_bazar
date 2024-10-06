@@ -43,10 +43,14 @@ class _ProductWidgetState extends State<ProductWidget> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(4.0),
-                    child: Text(widget.categoryName,
-                        style: const TextStyle(
-                            color: AppConstant.appMainColor,
-                            fontWeight: FontWeight.w600)),
+                    child: SizedBox(
+                      width: Get.width / 4,
+                      child: Text(widget.categoryName,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                              color: AppConstant.appMainColor,
+                              fontWeight: FontWeight.w600)),
+                    ),
                   )
                 ],
               ),
