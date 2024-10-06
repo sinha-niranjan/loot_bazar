@@ -68,15 +68,23 @@ class _FlashSaleProductWidgetState extends State<FlashSaleProductWidget> {
                     width: Get.width / 3,
                     child: Row(
                       children: [
+                        const Text(
+                          "Rs. ",
+                          style: TextStyle(
+                            color: AppConstant.appTextColor,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                         Text(
-                          "Rs. ${widget.fullPrice}",
+                          widget.fullPrice,
                           style: const TextStyle(
-                              color: AppConstant.appTextColor,
+                              color: AppConstant.appSecondaryTextColor,
                               fontSize: 12,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w400,
                               decoration: TextDecoration.lineThrough,
                               decorationColor: AppConstant.appRedColor,
-                              decorationThickness: 4),
+                              decorationThickness: 3),
                         ),
                         SizedBox(
                           width: Get.width / 50,
