@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loot_bazar/widgets/banner_widget.dart';
+import 'package:loot_bazar/widgets/category_widget.dart';
 import 'package:loot_bazar/widgets/custom_drawer_widget.dart';
+import 'package:loot_bazar/widgets/flash_sale_widget.dart';
+import 'package:loot_bazar/widgets/heading_widget.dart';
 
 import '../../utils/app_constant.dart';
 
@@ -11,6 +14,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppConstant.appBackgroundColor,
       appBar: AppBar(
         backgroundColor: AppConstant.appMainColor,
         title: Text(
@@ -35,7 +39,23 @@ class MainScreen extends StatelessWidget {
               ),
 
               //banner
-              const BannerWidget()
+              const BannerWidget(),
+
+              // heading
+              HeadingWidget(
+                headingTitle: "Categories",
+                headingSubTitle: "According to your budget",
+                buttonText: "See More >> ",
+                onTap: () {},
+              ),
+              const CategoryWidget(),
+              HeadingWidget(
+                headingTitle: "Flash Sale",
+                headingSubTitle: "According to your budget",
+                buttonText: "See More >> ",
+                onTap: () {},
+              ),
+              FlashSaleWidget(),
             ],
           ),
         ),
