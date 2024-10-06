@@ -1,10 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loot_bazar/models/categories_model.dart';
-import 'package:loot_bazar/utils/app_constant.dart';
 import 'package:loot_bazar/widgets/product_widget.dart';
 
 class CategoryWidget extends StatefulWidget {
@@ -43,7 +41,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
             ));
           }
           if (snapShot.data != null) {
-            return Container(
+            return SizedBox(
               height: Get.height / 5.5,
               child: ListView.builder(
                   itemCount: snapShot.data!.docs.length,
@@ -61,6 +59,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                     return ProductWidget(
                         categoryImage: categoriesModel.categoryImage,
                         categoryName: categoriesModel.categoryName,
+                        categoryId: categoriesModel.categoryId,
                         height: 7,
                         width: 3);
                   }),

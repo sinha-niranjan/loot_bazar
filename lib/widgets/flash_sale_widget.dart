@@ -1,13 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:loot_bazar/models/categories_model.dart';
 import 'package:loot_bazar/models/product_model.dart';
-import 'package:loot_bazar/utils/app_constant.dart';
 import 'package:loot_bazar/widgets/flash_sale_product_widget.dart';
-import 'package:loot_bazar/widgets/product_widget.dart';
 
 class FlashSaleWidget extends StatefulWidget {
   const FlashSaleWidget({super.key});
@@ -74,7 +70,9 @@ class _FlashSaleWidgetState extends State<FlashSaleWidget> {
                         salePrice: productModel.salePrice,
                         fullPrice: productModel.fullPrice,
                         deliveryTime: productModel.deliveryTime,
-                        isSale: productModel.isSale);
+                        isSale: productModel.isSale,
+                        width: 3,
+                        height: 7);
                   }),
             );
           }
