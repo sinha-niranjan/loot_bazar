@@ -27,53 +27,58 @@ class ProductWidget extends StatefulWidget {
 class _ProductWidgetState extends State<ProductWidget> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () =>
-          Get.to(SingleCategoryProductsScreen(categoryId: widget.categoryId)),
-      child: Container(
-        decoration: BoxDecoration(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+      child: GestureDetector(
+        onTap: () =>
+            Get.to(SingleCategoryProductsScreen(categoryId: widget.categoryId)),
+        child: Container(
+          decoration: BoxDecoration(
             color: AppConstant.appWhiteColor,
-            borderRadius: BorderRadius.circular(10)),
-        child: (Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5),
-          child: Container(
-            decoration: const BoxDecoration(
-              color: AppConstant.appWhiteColor,
-            ),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    height: Get.height / widget.height,
-                    width: Get.width / widget.width,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: AppConstant.appWhiteColor,
-                      image: DecorationImage(
-                        image: CachedNetworkImageProvider(widget.categoryImage),
-                        fit: BoxFit.cover,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: (Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: Container(
+              decoration: const BoxDecoration(
+                color: AppConstant.appWhiteColor,
+              ),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: Get.height / widget.height,
+                      width: Get.width / widget.width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: AppConstant.appWhiteColor,
+                        image: DecorationImage(
+                          image:
+                              CachedNetworkImageProvider(widget.categoryImage),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: SizedBox(
-                      width: Get.width / 4,
-                      child: Text(widget.categoryName,
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                              color: AppConstant.appMainColor,
-                              fontWeight: FontWeight.w600)),
-                    ),
-                  )
-                ],
+                    Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: SizedBox(
+                        width: Get.width / 4,
+                        child: Text(widget.categoryName,
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                                color: AppConstant.appMainColor,
+                                fontWeight: FontWeight.w600)),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-        )),
+          )),
+        ),
       ),
     );
   }

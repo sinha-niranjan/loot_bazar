@@ -74,41 +74,66 @@ class _FlashSaleProductWidgetState extends State<FlashSaleProductWidget> {
                                   fontWeight: FontWeight.w500)),
                         ),
                       ),
-                      SizedBox(
-                        width: Get.width / 3,
-                        child: Row(
-                          children: [
-                            const Text(
-                              "Rs. ",
-                              style: TextStyle(
-                                color: AppConstant.appTextColor,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
+                      widget.isSale
+                          ? SizedBox(
+                              width: Get.width / 3,
+                              child: Row(
+                                children: [
+                                  const Text(
+                                    "Rs. ",
+                                    style: TextStyle(
+                                      color: AppConstant.appTextColor,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    widget.fullPrice,
+                                    style: const TextStyle(
+                                        color:
+                                            AppConstant.appSecondaryTextColor,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400,
+                                        decoration: TextDecoration.lineThrough,
+                                        decorationColor:
+                                            AppConstant.appRedColor,
+                                        decorationThickness: 3),
+                                  ),
+                                  SizedBox(
+                                    width: Get.width / 50,
+                                  ),
+                                  Text(
+                                    widget.salePrice,
+                                    style: const TextStyle(
+                                        color: AppConstant.appRedColor,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
                               ),
-                            ),
-                            Text(
-                              widget.fullPrice,
-                              style: const TextStyle(
-                                  color: AppConstant.appSecondaryTextColor,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                  decoration: TextDecoration.lineThrough,
-                                  decorationColor: AppConstant.appRedColor,
-                                  decorationThickness: 3),
-                            ),
-                            SizedBox(
-                              width: Get.width / 50,
-                            ),
-                            Text(
-                              widget.salePrice,
-                              style: const TextStyle(
-                                  color: AppConstant.appRedColor,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                      )
+                            )
+                          : SizedBox(
+                              width: Get.width / 3,
+                              child: Row(
+                                children: [
+                                  const Text(
+                                    "Rs. ",
+                                    style: TextStyle(
+                                      color: AppConstant.appTextColor,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    widget.fullPrice,
+                                    style: const TextStyle(
+                                        color: AppConstant.appRedColor,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            )
                     ],
                   ),
                 ),

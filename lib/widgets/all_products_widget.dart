@@ -5,21 +5,18 @@ import 'package:get/get.dart';
 import 'package:loot_bazar/models/product_model.dart';
 import 'package:loot_bazar/widgets/flash_sale_product_widget.dart';
 
-class FlashSaleWidget extends StatefulWidget {
-  const FlashSaleWidget({super.key});
+class AllProductsWidget extends StatefulWidget {
+  const AllProductsWidget({super.key});
 
   @override
-  State<FlashSaleWidget> createState() => _FlashSaleWidgetState();
+  State<AllProductsWidget> createState() => _AllProductsWidgetState();
 }
 
-class _FlashSaleWidgetState extends State<FlashSaleWidget> {
+class _AllProductsWidgetState extends State<AllProductsWidget> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: FirebaseFirestore.instance
-            .collection('products')
-            .where('isSale', isEqualTo: true)
-            .get(),
+        future: FirebaseFirestore.instance.collection('products').get(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapShot) {
           if (snapShot.hasError) {
             return const Center(

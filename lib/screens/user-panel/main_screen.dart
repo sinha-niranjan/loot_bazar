@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loot_bazar/screens/user-panel/all_categories_screen.dart';
 import 'package:loot_bazar/screens/user-panel/all_flash_sale_product.dart';
+import 'package:loot_bazar/screens/user-panel/all_product_screen.dart';
+import 'package:loot_bazar/widgets/all_products_widget.dart';
 import 'package:loot_bazar/widgets/banner_widget.dart';
 import 'package:loot_bazar/widgets/category_widget.dart';
 import 'package:loot_bazar/widgets/custom_drawer_widget.dart';
@@ -33,32 +35,42 @@ class MainScreen extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         child: Container(
           color: AppConstant.appBackgroundColor,
-          height: Get.height,
-          child: Column(
-            children: [
-              SizedBox(
-                height: Get.height / 90,
-              ),
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: Get.height / 90,
+                ),
 
-              //banner
-              const BannerWidget(),
+                //banner
+                const BannerWidget(),
 
-              // heading
-              HeadingWidget(
-                headingTitle: "Categories",
-                headingSubTitle: "According to your budget",
-                buttonText: "See More >> ",
-                onTap: () => Get.to(() => AllCategoriesScreen()),
-              ),
-              const CategoryWidget(),
-              HeadingWidget(
-                headingTitle: "Flash Sale",
-                headingSubTitle: "According to your budget",
-                buttonText: "See More >> ",
-                onTap: () => Get.to(() => AllFlashSaleProduct()),
-              ),
-              FlashSaleWidget(),
-            ],
+                // heading
+                HeadingWidget(
+                  headingTitle: "Categories",
+                  headingSubTitle: "According to your budget",
+                  buttonText: "See More >> ",
+                  onTap: () => Get.to(() => const AllCategoriesScreen()),
+                ),
+
+                const CategoryWidget(),
+                HeadingWidget(
+                  headingTitle: "Flash Sale",
+                  headingSubTitle: "According to your budget",
+                  buttonText: "See More >> ",
+                  onTap: () => Get.to(() => const AllFlashSaleProduct()),
+                ),
+                const FlashSaleWidget(),
+                HeadingWidget(
+                  headingTitle: "All Products  ",
+                  headingSubTitle: "According to your budget",
+                  buttonText: "See More >> ",
+                  onTap: () => Get.to(() => const AllProductScreen()),
+                ),
+                const AllProductsWidget(),
+              ],
+            ),
           ),
         ),
       ),
