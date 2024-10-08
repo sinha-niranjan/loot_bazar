@@ -61,12 +61,13 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
                 return GridView.builder(
                     itemCount: snapShot.data!.docs.length,
                     shrinkWrap: true,
-                    physics: const  BouncingScrollPhysics(),
-                    gridDelegate:  const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 30,
-                        crossAxisSpacing: 20,
-                        childAspectRatio: .8),
+                    physics: const BouncingScrollPhysics(),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 30,
+                            crossAxisSpacing: 20,
+                            childAspectRatio: .8),
                     itemBuilder: (context, index) {
                       CategoriesModel categoriesModel = CategoriesModel(
                         categoryId: snapShot.data!.docs[index]['categoryId'],
@@ -78,10 +79,12 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
                         updatedAt: snapShot.data!.docs[index]['updatedAt'],
                       );
                       return ProductWidget(
-                          categoryImage: categoriesModel.categoryImage,
-                          categoryName: categoriesModel.categoryName,
-                          height: 4.5,
-                          width: 2.5);
+                        categoryImage: categoriesModel.categoryImage,
+                        categoryName: categoriesModel.categoryName,
+                        categoryId: categoriesModel.categoryId,
+                        height: 4.5,
+                        width: 2.5,
+                      );
                     });
               }
 
