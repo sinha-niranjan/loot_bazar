@@ -7,14 +7,14 @@ import 'package:loot_bazar/screens/user-panel/product_details_screen.dart';
 import 'package:loot_bazar/utils/app_constant.dart';
 import 'package:loot_bazar/widgets/flash_sale_product_widget.dart';
 
-class AllFlashSaleProduct extends StatefulWidget {
-  const AllFlashSaleProduct({super.key});
+class AllProductScreen extends StatefulWidget {
+  const AllProductScreen({super.key});
 
   @override
-  State<AllFlashSaleProduct> createState() => _AllFlashSaleProductState();
+  State<AllProductScreen> createState() => _AllProductScreenState();
 }
 
-class _AllFlashSaleProductState extends State<AllFlashSaleProduct> {
+class _AllProductScreenState extends State<AllProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +22,7 @@ class _AllFlashSaleProductState extends State<AllFlashSaleProduct> {
       appBar: AppBar(
           backgroundColor: AppConstant.appMainColor,
           title: const Text(
-            "All Flash Sale Products ",
+            "All Products ",
             style: TextStyle(
               color: AppConstant.appWhiteColor,
             ),
@@ -33,10 +33,7 @@ class _AllFlashSaleProductState extends State<AllFlashSaleProduct> {
               icon: const Icon(Icons.arrow_back_ios_new_rounded),
               onPressed: () => Navigator.of(context).pop())),
       body: FutureBuilder(
-        future: FirebaseFirestore.instance
-            .collection('products')
-            .where('isSale', isEqualTo: true)
-            .get(),
+        future: FirebaseFirestore.instance.collection('products').get(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapShot) {
           if (snapShot.hasError) {
             return const Center(
@@ -86,16 +83,15 @@ class _AllFlashSaleProductState extends State<AllFlashSaleProduct> {
                       createdAt: productData['createdAt'],
                       updatedAt: productData['updatedAt']);
                   return FlashSaleProductWidget(
-                    productImages: productModel.productImages,
-                    productName: productModel.productName,
-                    salePrice: productModel.salePrice,
-                    fullPrice: productModel.fullPrice,
-                    deliveryTime: productModel.deliveryTime,
-                    isSale: productModel.isSale,
-                    width: 2.5,
-                    height: 5,
-                    onTap: () => Get.to(() => ProductDetailsScreen()),
-                  );
+                      productImages: productModel.productImages,
+                      productName: productModel.productName,
+                      salePrice: productModel.salePrice,
+                      fullPrice: productModel.fullPrice,
+                      deliveryTime: productModel.deliveryTime,
+                      isSale: productModel.isSale,
+                      width: 2.5,
+                      height: 5,
+                      onTap: () => Get.to(() => ProductDetailsScreen()));
                 });
           }
 
