@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loot_bazar/models/product_model.dart';
+import 'package:loot_bazar/screens/user-panel/product_details_screen.dart';
 import 'package:loot_bazar/widgets/flash_sale_product_widget.dart';
 
 class FlashSaleWidget extends StatefulWidget {
@@ -63,14 +64,16 @@ class _FlashSaleWidgetState extends State<FlashSaleWidget> {
                         createdAt: productData['createdAt'],
                         updatedAt: productData['updatedAt']);
                     return FlashSaleProductWidget(
-                        productImages: productModel.productImages,
-                        productName: productModel.productName,
-                        salePrice: productModel.salePrice,
-                        fullPrice: productModel.fullPrice,
-                        deliveryTime: productModel.deliveryTime,
-                        isSale: productModel.isSale,
-                        width: 3,
-                        height: 7);
+                      productImages: productModel.productImages,
+                      productName: productModel.productName,
+                      salePrice: productModel.salePrice,
+                      fullPrice: productModel.fullPrice,
+                      deliveryTime: productModel.deliveryTime,
+                      isSale: productModel.isSale,
+                      width: 3,
+                      height: 7,
+                      onTap: () => Get.to(() => ProductDetailsScreen()),
+                    );
                   }),
             );
           }
