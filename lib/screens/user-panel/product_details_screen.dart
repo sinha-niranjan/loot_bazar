@@ -69,7 +69,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: Get.height / 100,
+                  height: Get.height / 50,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -82,12 +82,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  widget.productModel.productName,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 25,
-                                      color: AppConstant.appMainColor),
+                                Flexible(
+                                  child: Text(
+                                    widget.productModel.productName,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 25,
+                                        color: AppConstant.appMainColor),
+                                  ),
                                 ),
                                 const Icon(
                                   Icons.favorite_outline,
