@@ -7,6 +7,7 @@ import 'package:loot_bazar/models/product_model.dart';
 import 'package:loot_bazar/utils/app_constant.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
+  final 
   ProductModel productModel;
   ProductDetailsScreen({super.key, required this.productModel});
 
@@ -33,45 +34,46 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               icon: const Icon(Icons.arrow_back_ios_new_rounded),
               onPressed: () => Navigator.of(context).pop()),
         ),
-        body: Container(
-          child: Column(
-            children: [
-              SizedBox(
-                height: Get.height / 30,
-              ),
-              // product images
-              CarouselSlider(
-                items: widget.productModel.productImages
-                    .map((imageUrls) => ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: CachedNetworkImage(
-                            imageUrl: imageUrls,
-                            fit: BoxFit.cover,
-                            width: Get.width - 10,
-                            placeholder: (context, url) => const ColoredBox(
-                              color: AppConstant.appWhiteColor,
-                              child: Center(
-                                child: CupertinoActivityIndicator(),
-                              ),
-                            ),
-                            errorWidget: (context, url, error) =>
-                                const Icon(Icons.error),
-                          ),
-                        ))
-                    .toList(),
-                options: CarouselOptions(
-                  scrollDirection: Axis.horizontal,
-                  autoPlay: true,
-                  aspectRatio: 2,
-                  viewportFraction: 1,
+        body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Container(
+            color: AppConstant.appWhiteColor,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: Get.height / 200,
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Card(
-                  elevation: 5.0,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
+                // product images
+                CarouselSlider(
+                  items: widget.productModel.productImages
+                      .map((imageUrls) => ClipRRect(
+                            child: CachedNetworkImage(
+                              imageUrl: imageUrls,
+                              fit: BoxFit.cover,
+                              width: Get.width,
+                              placeholder: (context, url) => const ColoredBox(
+                                color: AppConstant.appWhiteColor,
+                                child: Center(
+                                  child: CupertinoActivityIndicator(),
+                                ),
+                              ),
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
+                            ),
+                          ))
+                      .toList(),
+                  options: CarouselOptions(
+                    scrollDirection: Axis.horizontal,
+                    autoPlay: true,
+                    aspectRatio: 0.8,
+                    viewportFraction: 1,
+                  ),
+                ),
+                SizedBox(
+                  height: Get.height / 100,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Column(
                     children: [
                       Padding(
@@ -81,31 +83,53 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(widget.productModel.productName),
-                                Icon(Icons.favorite_outline)
+                                Text(
+                                  widget.productModel.productName,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 25,
+                                      color: AppConstant.appMainColor),
+                                ),
+                                const Icon(
+                                  Icons.favorite_outline,
+                                  color: AppConstant.appMainColor,
+                                )
                               ],
                             )),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                            alignment: Alignment.topLeft,
-                            child: Text("Category : " +
-                                widget.productModel.categoryName)),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
                           alignment: Alignment.topLeft,
-                          child:
-                              Text("Price :" + widget.productModel.fullPrice),
+                          child: Text(
+                            'RS.  ${widget.productModel.fullPrice}',
+                            style: const TextStyle(
+                                color: AppConstant.appRedColor,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
                       Padding(
+                        padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 0),
+                        child: Container(
+                            alignment: Alignment.topLeft,
+                            child: Text(
+                              'Category :   ${widget.productModel.categoryName}',
+                              style: const TextStyle(
+                                  color: AppConstant.appSecondaryTextColor,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16),
+                            )),
+                      ),
+                      Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           alignment: Alignment.topLeft,
-                          child: Text(widget.productModel.productDescription),
+                          child: Text(
+                            widget.productModel.productDescription,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w400, fontSize: 13),
+                          ),
                         ),
                       ),
                       Padding(
@@ -159,9 +183,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           )),
                     ],
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ));
   }
