@@ -114,7 +114,8 @@ class _SingleCategoryProductsScreenState
                         isSale: productModel.isSale,
                         width: 2.5,
                         height: 5,
-                        onTap: () =>  Get.to(() => ProductDetailsScreen()),
+                        onTap: () => Get.to(() =>
+                            ProductDetailsScreen(productModel: productModel)),
                       );
                     });
               }
