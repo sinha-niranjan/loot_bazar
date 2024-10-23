@@ -7,8 +7,7 @@ import 'package:loot_bazar/models/product_model.dart';
 import 'package:loot_bazar/utils/app_constant.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
-  final 
-  ProductModel productModel;
+  final ProductModel productModel;
   ProductDetailsScreen({super.key, required this.productModel});
 
   @override
@@ -98,17 +97,68 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             )),
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            'RS.  ${widget.productModel.fullPrice}',
-                            style: const TextStyle(
-                                color: AppConstant.appRedColor,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
+                          padding: const EdgeInsets.all(8.0),
+                          child: widget.productModel.isSale
+                              ? SizedBox(
+                                  width: Get.width,
+                                  child: Row(
+                                    children: [
+                                      const Text(
+                                        "Rs. ",
+                                        style: TextStyle(
+                                          color: AppConstant.appTextColor,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        widget.productModel.fullPrice,
+                                        style: const TextStyle(
+                                            color: AppConstant
+                                                .appSecondaryTextColor,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w400,
+                                            decoration:
+                                                TextDecoration.lineThrough,
+                                            decorationColor:
+                                                AppConstant.appRedColor,
+                                            decorationThickness: 3),
+                                      ),
+                                      SizedBox(
+                                        width: Get.width / 50,
+                                      ),
+                                      Text(
+                                        widget.productModel.salePrice,
+                                        style: const TextStyle(
+                                            color: AppConstant.appRedColor,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : SizedBox(
+                                  width: Get.width,
+                                  child: Row(
+                                    children: [
+                                      const Text(
+                                        "Rs. ",
+                                        style: TextStyle(
+                                          color: AppConstant.appTextColor,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        widget.productModel.fullPrice,
+                                        style: const TextStyle(
+                                            color: AppConstant.appRedColor,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                )),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 0),
                         child: Container(
