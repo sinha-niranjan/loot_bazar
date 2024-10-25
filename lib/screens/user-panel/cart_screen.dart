@@ -117,68 +117,129 @@ class _CartScreenState extends State<CartScreen> {
                               .delete();
                         })
                   ],
-                  child: Column(
-                    children: [
-                      Card(
-                        elevation: 5,
-                        shadowColor: AppConstant.appMainColor,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5)),
-                        color: AppConstant.appWhiteColor,
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 10.0, 0, 10.0),
-                          child: ListTile(
-                            leading: CircleAvatar(
-                              backgroundColor:
-                                  AppConstant.appSecondaryTextColor,
-                              backgroundImage: NetworkImage(
-                                cartModel.productImages[0],
+                  child: Container(
+                    color: AppConstant.appBackgroundColor,
+                    child: Column(
+                      children: [
+                        Card(
+                          elevation: 5,
+                          shadowColor: AppConstant.appMainColor,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5)),
+                          color: AppConstant.appWhiteColor,
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.fromLTRB(0, 10.0, 0, 10.0),
+                            child: ListTile(
+                              leading: CircleAvatar(
+                                backgroundColor:
+                                    AppConstant.appSecondaryTextColor,
+                                backgroundImage: NetworkImage(
+                                  cartModel.productImages[0],
+                                ),
                               ),
-                            ),
-                            title: Text(
-                              cartModel.productName,
-                            ),
-                            subtitle: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(cartModel.productTotalPrice.toString()),
-                                const SizedBox(
-                                  width: 20,
-                                ),
-                                const CircleAvatar(
-                                  radius: 16,
-                                  backgroundColor: AppConstant.appMainColor,
-                                  foregroundColor: AppConstant.appWhiteColor,
-                                  child: Text(
-                                    "-",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20),
+                              title: Text(
+                                cartModel.productName,
+                              ),
+                              subtitle: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(cartModel.productTotalPrice.toString()),
+                                  const SizedBox(
+                                    width: 20,
                                   ),
-                                ),
-                                const SizedBox(
-                                  width: 20,
-                                ),
-                                const CircleAvatar(
-                                  radius: 16,
-                                  backgroundColor: AppConstant.appMainColor,
-                                  foregroundColor: AppConstant.appWhiteColor,
-                                  child: Text(
-                                    "+",
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
+                                  GestureDetector(
+                                    onTap: () async {
+                                      if (cartModel.productQuantity > 1) {
+                                        await FirebaseFirestore.instance
+                                            .collection('cart')
+                                            .doc(user!.uid)
+                                            .collection('cartOrders')
+                                            .doc(cartModel.productId)
+                                            .update({
+                                          'productQuantity':
+                                              cartModel.productQuantity - 1,
+                                          'productTotalPrice': (double.parse(
+                                                  cartModel.isSale
+                                                      ? cartModel.salePrice
+                                                      : cartModel.fullPrice) *
+                                              (cartModel.productQuantity - 1)),
+                                        });
+                                      }
+                                    },
+                                    child: const CircleAvatar(
+                                      radius: 16,
+                                      backgroundColor: AppConstant.appMainColor,
+                                      foregroundColor:
+                                          AppConstant.appWhiteColor,
+                                      child: Text(
+                                        "-",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20),
+                                      ),
+                                    ),
                                   ),
-                                )
-                              ],
+                                  const SizedBox(
+                                    width: 20,
+                                  ),
+                                  CircleAvatar(
+                                    radius: 16,
+                                    backgroundColor: AppConstant.appMainColor,
+                                    foregroundColor: AppConstant.appWhiteColor,
+                                    child: Text(
+                                      cartModel.productQuantity.toString(),
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 20,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () async {
+                                      if (cartModel.productQuantity > 0 &&
+                                          cartModel.productQuantity < 100) {
+                                        await FirebaseFirestore.instance
+                                            .collection('cart')
+                                            .doc(user!.uid)
+                                            .collection('cartOrders')
+                                            .doc(cartModel.productId)
+                                            .update({
+                                          'productQuantity':
+                                              cartModel.productQuantity + 1,
+                                          'productTotalPrice': (double.parse(
+                                                  cartModel.isSale
+                                                      ? cartModel.salePrice
+                                                      : cartModel.fullPrice) *
+                                              (cartModel.productQuantity + 1)),
+                                        });
+                                      }
+                                    },
+                                    child: const CircleAvatar(
+                                      radius: 16,
+                                      backgroundColor: AppConstant.appMainColor,
+                                      foregroundColor:
+                                          AppConstant.appWhiteColor,
+                                      child: Text(
+                                        "+",
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      )
-                    ],
+                        const SizedBox(
+                          height: 10,
+                        )
+                      ],
+                    ),
                   ),
                 );
               },
