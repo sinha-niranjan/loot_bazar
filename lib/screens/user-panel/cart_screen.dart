@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swipe_action_cell/core/cell.dart';
 import 'package:get/get.dart';
+import 'package:loot_bazar/controllers/cart_price_controller.dart';
 import 'package:loot_bazar/models/cart_model.dart';
 import 'package:loot_bazar/utils/app_constant.dart';
 
@@ -16,6 +17,8 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   User? user = FirebaseAuth.instance.currentUser;
+  final ProductPriceController productPriceController =
+      Get.put(ProductPriceController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,6 +104,10 @@ class _CartScreenState extends State<CartScreen> {
                   productTotalPrice: productData['productTotalPrice'],
                 );
 
+                // calculate price
+
+                productPriceController.fetchProductPrice();
+
                 return SwipeActionCell(
                   key: ObjectKey(cartModel.productId),
                   trailingActions: [
@@ -142,7 +149,8 @@ class _CartScreenState extends State<CartScreen> {
                                 cartModel.productName,
                               ),
                               subtitle: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(cartModel.productTotalPrice.toString()),
                                   const SizedBox(
@@ -263,12 +271,14 @@ class _CartScreenState extends State<CartScreen> {
                     fontWeight: FontWeight.bold,
                     fontSize: 20),
               ),
-              const Text(
-                "Rs.12,000",
-                style: TextStyle(
-                    color: AppConstant.appGreenColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20),
+              Obx(
+                () => Text(
+                  "Rs.${productPriceController.totalPrice.toStringAsFixed(1)}",
+                  style: const TextStyle(
+                      color: AppConstant.appGreenColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20),
+                ),
               ),
               Material(
                 shape: RoundedRectangleBorder(
@@ -276,7 +286,7 @@ class _CartScreenState extends State<CartScreen> {
                       BorderRadius.circular(25.0), // Set the radius here
                 ),
                 child: Container(
-                  width: Get.width / 2.5,
+                  width: Get.width / 3.5,
                   height: Get.height / 16,
                   decoration: BoxDecoration(
                     border:
