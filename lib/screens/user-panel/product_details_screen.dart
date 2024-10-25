@@ -291,13 +291,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     } else {
       // product found in cart, update quantity
       int currentQuantity = snapshot['productQuantity'] as int;
-      double currentTotalPrice = snapshot['productTotalPrice'];
       int updatedQuantity = currentQuantity + quantityIncrement;
-      double totalPrice = currentTotalPrice +
-          double.parse(widget.productModel.isSale
-                  ? widget.productModel.salePrice
-                  : widget.productModel.fullPrice) *
-              quantityIncrement;
+      double totalPrice = double.parse(widget.productModel.isSale
+              ? widget.productModel.salePrice
+              : widget.productModel.fullPrice) *
+          updatedQuantity;
 
       await documentReference.update({
         'productQuantity': updatedQuantity,
