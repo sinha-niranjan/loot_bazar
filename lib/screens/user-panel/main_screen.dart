@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:loot_bazar/screens/user-panel/all_categories_screen.dart';
 import 'package:loot_bazar/screens/user-panel/all_flash_sale_product.dart';
 import 'package:loot_bazar/screens/user-panel/all_product_screen.dart';
-import 'package:loot_bazar/screens/user-panel/cart-screen.dart';
+import 'package:loot_bazar/screens/user-panel/cart_screen.dart';
 import 'package:loot_bazar/widgets/all_products_widget.dart';
 import 'package:loot_bazar/widgets/banner_widget.dart';
 import 'package:loot_bazar/widgets/category_widget.dart';
@@ -34,8 +34,8 @@ class MainScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: GestureDetector(
-              onTap: () => Get.to(() => CartScreen()),
-              child: Icon(
+              onTap: () => Get.to(() => const CartScreen()),
+              child: const Icon(
                 Icons.shopping_cart,
               ),
             ),

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loot_bazar/models/cart_model.dart';
 import 'package:loot_bazar/models/product_model.dart';
+import 'package:loot_bazar/screens/user-panel/cart_screen.dart';
 import 'package:loot_bazar/utils/app_constant.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
@@ -36,6 +37,17 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           leading: IconButton(
               icon: const Icon(Icons.arrow_back_ios_new_rounded),
               onPressed: () => Navigator.of(context).pop()),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                onTap: () => Get.to(() => const CartScreen()),
+                child: const Icon(
+                  Icons.shopping_cart,
+                ),
+              ),
+            )
+          ],
         ),
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -229,6 +241,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                     onPressed: () async {
                                       await checkProductExistence(
                                           uId: user!.uid);
+
+                                      // Get.to(() => CartScreen());
                                     },
                                     child: const Text(
                                       'Add to cart',
@@ -286,8 +300,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             : widget.productModel.fullPrice),
       );
       await documentReference.set(cartModel.toMap());
-
-      print("Product Added ");
     } else {
       // product found in cart, update quantity
       int currentQuantity = snapshot['productQuantity'] as int;
@@ -301,8 +313,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         'productQuantity': updatedQuantity,
         'productTotalPrice': totalPrice
       });
-
-      print("Product exists");
     }
   }
 }
