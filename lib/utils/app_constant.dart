@@ -12,4 +12,5 @@ class AppConstant {
   static const appWhiteColor = Color.fromRGBO(255, 255, 255, 1);
   static const appBackgroundColor = Color.fromRGBO(229, 231, 235, 1);
   static const appRedColor = Colors.red;
+  static const appGreenColor = Colors.green;
 }
