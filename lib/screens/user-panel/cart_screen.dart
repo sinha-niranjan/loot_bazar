@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_swipe_action_cell/core/cell.dart';
 import 'package:get/get.dart';
 import 'package:loot_bazar/models/cart_model.dart';
 import 'package:loot_bazar/utils/app_constant.dart';
@@ -33,12 +34,12 @@ class _CartScreenState extends State<CartScreen> {
             icon: const Icon(Icons.arrow_back_ios_new_rounded),
             onPressed: () => Navigator.of(context).pop()),
       ),
-      body: FutureBuilder(
-        future: FirebaseFirestore.instance
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance
             .collection('cart')
             .doc(user!.uid)
             .collection('cartOrders')
-            .get(),
+            .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapShot) {
           if (snapShot.hasError) {
             return const Center(
@@ -58,8 +59,22 @@ class _CartScreenState extends State<CartScreen> {
 
           if (snapShot.data!.docs.isEmpty) {
             return const Center(
-                child: Row(
-              children: [Text("No Products found!"), Icon(Icons.android)],
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Your Cart is Empty!",
+                  style: TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.bold,
+                      color: AppConstant.appMainColor),
+                ),
+                Icon(
+                  Icons.android,
+                  size: 300,
+                  color: AppConstant.appMainColor,
+                )
+              ],
             ));
           }
           if (snapShot.data != null) {
@@ -86,67 +101,87 @@ class _CartScreenState extends State<CartScreen> {
                   productTotalPrice: productData['productTotalPrice'],
                 );
 
-                return Column(
-                  children: [
-                    Card(
-                      elevation: 5,
-                      shadowColor: AppConstant.appMainColor,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5)),
-                      color: AppConstant.appWhiteColor,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 10.0, 0, 10.0),
-                        child: ListTile(
-                          leading: CircleAvatar(
-                            backgroundColor: AppConstant.appSecondaryTextColor,
-                            backgroundImage: NetworkImage(
-                              cartModel.productImages[0],
+                return SwipeActionCell(
+                  key: ObjectKey(cartModel.productId),
+                  trailingActions: [
+                    SwipeAction(
+                        title: "Delete",
+                        forceAlignmentToBoundary: true,
+                        performsFirstActionWithFullSwipe: true,
+                        onTap: (CompletionHandler hadnler) async {
+                          print("deleted");
+
+                          await FirebaseFirestore.instance
+                              .collection('cart')
+                              .doc(user!.uid)
+                              .collection('cartOrders')
+                              .doc(cartModel.productId)
+                              .delete();
+                        })
+                  ],
+                  child: Column(
+                    children: [
+                      Card(
+                        elevation: 5,
+                        shadowColor: AppConstant.appMainColor,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5)),
+                        color: AppConstant.appWhiteColor,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 10.0, 0, 10.0),
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor:
+                                  AppConstant.appSecondaryTextColor,
+                              backgroundImage: NetworkImage(
+                                cartModel.productImages[0],
+                              ),
                             ),
-                          ),
-                          title: Text(
-                            cartModel.productName,
-                          ),
-                          subtitle: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(cartModel.productTotalPrice.toString()),
-                              const SizedBox(
-                                width: 20,
-                              ),
-                              const CircleAvatar(
-                                radius: 16,
-                                backgroundColor: AppConstant.appMainColor,
-                                foregroundColor: AppConstant.appWhiteColor,
-                                child: Text(
-                                  "-",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20),
+                            title: Text(
+                              cartModel.productName,
+                            ),
+                            subtitle: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(cartModel.productTotalPrice.toString()),
+                                const SizedBox(
+                                  width: 20,
                                 ),
-                              ),
-                              const SizedBox(
-                                width: 20,
-                              ),
-                              const CircleAvatar(
-                                radius: 16,
-                                backgroundColor: AppConstant.appMainColor,
-                                foregroundColor: AppConstant.appWhiteColor,
-                                child: Text(
-                                  "+",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
+                                const CircleAvatar(
+                                  radius: 16,
+                                  backgroundColor: AppConstant.appMainColor,
+                                  foregroundColor: AppConstant.appWhiteColor,
+                                  child: Text(
+                                    "-",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                  ),
                                 ),
-                              )
-                            ],
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                const CircleAvatar(
+                                  radius: 16,
+                                  backgroundColor: AppConstant.appMainColor,
+                                  foregroundColor: AppConstant.appWhiteColor,
+                                  child: Text(
+                                    "+",
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    )
-                  ],
+                      const SizedBox(
+                        height: 10,
+                      )
+                    ],
+                  ),
                 );
               },
             );
