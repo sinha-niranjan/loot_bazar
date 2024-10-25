@@ -109,8 +109,6 @@ class _CartScreenState extends State<CartScreen> {
                         forceAlignmentToBoundary: true,
                         performsFirstActionWithFullSwipe: true,
                         onTap: (CompletionHandler hadnler) async {
-                          print("deleted");
-
                           await FirebaseFirestore.instance
                               .collection('cart')
                               .doc(user!.uid)
