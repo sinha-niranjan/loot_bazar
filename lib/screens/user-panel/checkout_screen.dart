@@ -239,88 +239,94 @@ void showCustomBttomSheet() {
           top: Radius.circular(16),
         ),
       ),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20.0,
-                vertical: 20,
-              ),
-              child: Container(
-                height: 55.0,
-                child: TextFormField(
-                  textInputAction: TextInputAction.next,
-                  keyboardType: TextInputType.name,
-                  decoration: const InputDecoration(
-                    labelText: "Name",
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: 10,
-                    ),
-                    hintStyle: TextStyle(fontSize: 12),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0,
+                    vertical: 20,
                   ),
+                  child: Container(
+                    height: 55.0,
+                    child: TextFormField(
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.name,
+                      decoration: const InputDecoration(
+                        labelText: "Name",
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: 10,
+                        ),
+                        hintStyle: TextStyle(fontSize: 12),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0,
+                    vertical: 20,
+                  ),
+                  child: Container(
+                    height: 55.0,
+                    child: TextFormField(
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.phone,
+                      decoration: const InputDecoration(
+                        labelText: "Phone",
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: 10,
+                        ),
+                        hintStyle: TextStyle(fontSize: 12),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0,
+                    vertical: 20,
+                  ),
+                  child: Container(
+                    height: 55.0,
+                    child: TextFormField(
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.text,
+                      decoration: const InputDecoration(
+                        labelText: "Address",
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: 10,
+                        ),
+                        hintStyle: TextStyle(fontSize: 12),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppConstant.appMainColor,
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+            ),
+            onPressed: () {},
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8.0),
+              child: Text(
+                "Place Order",
+                style: TextStyle(
+                  color: AppConstant.appWhiteColor,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20.0,
-                vertical: 20,
-              ),
-              child: Container(
-                height: 55.0,
-                child: TextFormField(
-                  textInputAction: TextInputAction.next,
-                  keyboardType: TextInputType.phone,
-                  decoration: const InputDecoration(
-                    labelText: "Phone",
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: 10,
-                    ),
-                    hintStyle: TextStyle(fontSize: 12),
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20.0,
-                vertical: 20,
-              ),
-              child: Container(
-                height: 55.0,
-                child: TextFormField(
-                  textInputAction: TextInputAction.next,
-                  keyboardType: TextInputType.text,
-                  decoration: const InputDecoration(
-                    labelText: "Address",
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: 10,
-                    ),
-                    hintStyle: TextStyle(fontSize: 12),
-                  ),
-                ),
-              ),
-            ),
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppConstant.appMainColor,
-                  padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-                ),
-                onPressed: () {},
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Text(
-                    "Place Order",
-                    style: TextStyle(
-                      color: AppConstant.appWhiteColor,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ))
-          ],
-        ),
+          ),
+        ],
       ),
     ),
     backgroundColor: AppConstant.appTransparentBackgroundColor,
