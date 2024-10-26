@@ -89,7 +89,7 @@ class _AllProductScreenState extends State<AllProductScreen> {
                       fullPrice: productModel.fullPrice,
                       deliveryTime: productModel.deliveryTime,
                       isSale: productModel.isSale,
-                      width: 2.5,
+                      width: 3,
                       height: 5,
                       onTap: () => Get.to(() =>
                           ProductDetailsScreen(productModel: productModel)));
