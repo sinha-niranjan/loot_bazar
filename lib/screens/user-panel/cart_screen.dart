@@ -297,7 +297,7 @@ class _CartScreenState extends State<CartScreen> {
                   ),
                   child: TextButton(
                     onPressed: () {
-                      Get.to(const CheckoutScreen());
+                      Get.to(() => const CheckoutScreen());
                     },
                     child: const Text(
                       'Checkout',
