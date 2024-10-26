@@ -6,17 +6,16 @@ import 'package:flutter_swipe_action_cell/core/cell.dart';
 import 'package:get/get.dart';
 import 'package:loot_bazar/controllers/cart_price_controller.dart';
 import 'package:loot_bazar/models/cart_model.dart';
-import 'package:loot_bazar/screens/user-panel/checkout_screen.dart';
 import 'package:loot_bazar/utils/app_constant.dart';
 
-class CartScreen extends StatefulWidget {
-  const CartScreen({super.key});
+class CheckoutScreen extends StatefulWidget {
+  const CheckoutScreen({super.key});
 
   @override
-  State<CartScreen> createState() => _CartScreenState();
+  State<CheckoutScreen> createState() => _CheckoutScreenState();
 }
 
-class _CartScreenState extends State<CartScreen> {
+class _CheckoutScreenState extends State<CheckoutScreen> {
   User? user = FirebaseAuth.instance.currentUser;
   final ProductPriceController productPriceController =
       Get.put(ProductPriceController());
@@ -27,7 +26,7 @@ class _CartScreenState extends State<CartScreen> {
       appBar: AppBar(
         backgroundColor: AppConstant.appMainColor,
         title: const Text(
-          "Cart Screen",
+          "Checkout Screen",
           style: TextStyle(
             color: AppConstant.appWhiteColor,
           ),
@@ -296,9 +295,7 @@ class _CartScreenState extends State<CartScreen> {
                     borderRadius: BorderRadius.circular(25.0),
                   ),
                   child: TextButton(
-                    onPressed: () {
-                      Get.to(const CheckoutScreen());
-                    },
+                    onPressed: () {},
                     child: const Text(
                       'Checkout',
                       style: TextStyle(color: AppConstant.appMainColor),

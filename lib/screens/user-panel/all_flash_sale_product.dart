@@ -92,7 +92,7 @@ class _AllFlashSaleProductState extends State<AllFlashSaleProduct> {
                     fullPrice: productModel.fullPrice,
                     deliveryTime: productModel.deliveryTime,
                     isSale: productModel.isSale,
-                    width: 2.5,
+                    width: 2.7,
                     height: 5,
                     onTap: () => Get.to(
                         () => ProductDetailsScreen(productModel: productModel)),

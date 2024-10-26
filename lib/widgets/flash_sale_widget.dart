@@ -70,7 +70,7 @@ class _FlashSaleWidgetState extends State<FlashSaleWidget> {
                       fullPrice: productModel.fullPrice,
                       deliveryTime: productModel.deliveryTime,
                       isSale: productModel.isSale,
-                      width: 3,
+                      width: 2,
                       height: 7,
                       onTap: () => Get.to(() =>
                           ProductDetailsScreen(productModel: productModel)),
