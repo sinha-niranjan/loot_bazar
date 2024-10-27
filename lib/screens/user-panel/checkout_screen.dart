@@ -245,11 +245,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             top: Radius.circular(16),
           ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            SingleChildScrollView(
-              child: Column(
+        child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(
@@ -259,6 +260,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     child: Container(
                       height: 55.0,
                       child: TextFormField(
+                        controller: nameController,
                         textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.name,
                         decoration: const InputDecoration(
@@ -279,6 +281,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     child: Container(
                       height: 55.0,
                       child: TextFormField(
+                        controller: phoneController,
                         textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.phone,
                         decoration: const InputDecoration(
@@ -299,6 +302,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     child: Container(
                       height: 55.0,
                       child: TextFormField(
+                        controller: addressController,
                         textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.text,
                         decoration: const InputDecoration(
@@ -313,46 +317,46 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   ),
                 ],
               ),
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppConstant.appMainColor,
-                padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-              ),
-              onPressed: () async {
-                if (nameController.text.trim() != "" &&
-                    phoneController.text.trim() != "" &&
-                    addressController.text.trim() != "") {
-                  String name = nameController.text.trim();
-                  String phone = phoneController.text.trim();
-                  String address = addressController.text.trim();
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppConstant.appMainColor,
+                  padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                ),
+                onPressed: () async {
+                  if (nameController.text.trim() != "" &&
+                      phoneController.text.trim() != "" &&
+                      addressController.text.trim() != "") {
+                    String name = nameController.text.trim();
+                    String phone = phoneController.text.trim();
+                    String address = addressController.text.trim();
 
-                  String customerToken = await getCustomerDeviceToken();
+                    String customerToken = await getCustomerDeviceToken();
 
-                  // place order service
-                  placeOrder(
-                      context: context,
-                      customerName: name,
-                      customerPhone: phone,
-                      customerAddress: address,
-                      customerToken: customerToken);
-                } else {
-                  print("Please fill all details ");
-                }
-              },
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.0),
-                child: Text(
-                  "Place Order",
-                  style: TextStyle(
-                    color: AppConstant.appWhiteColor,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                    // place order service
+                    placeOrder(
+                        context: context,
+                        customerName: name,
+                        customerPhone: phone,
+                        customerAddress: address,
+                        customerToken: customerToken);
+                  } else {
+                    print("Please fill all details ");
+                  }
+                },
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text(
+                    "Place Order",
+                    style: TextStyle(
+                      color: AppConstant.appWhiteColor,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       backgroundColor: AppConstant.appTransparentBackgroundColor,
