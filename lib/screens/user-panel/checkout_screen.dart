@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swipe_action_cell/core/cell.dart';
 import 'package:get/get.dart';
 import 'package:loot_bazar/controllers/cart_price_controller.dart';
+import 'package:loot_bazar/controllers/get_customer_device_token_controller.dart';
 import 'package:loot_bazar/models/cart_model.dart';
+import 'package:loot_bazar/services/place_order_service.dart';
 import 'package:loot_bazar/utils/app_constant.dart';
 
 class CheckoutScreen extends StatefulWidget {
@@ -19,6 +21,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   User? user = FirebaseAuth.instance.currentUser;
   final ProductPriceController productPriceController =
       Get.put(ProductPriceController());
+
+  TextEditingController nameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -227,111 +234,131 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       ),
     );
   }
-}
 
-void showCustomBttomSheet() {
-  Get.bottomSheet(
-    Container(
-      height: Get.height * 0.8,
-      decoration: const BoxDecoration(
-        color: AppConstant.appWhiteColor,
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(16),
-        ),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0,
-                    vertical: 20,
-                  ),
-                  child: Container(
-                    height: 55.0,
-                    child: TextFormField(
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.name,
-                      decoration: const InputDecoration(
-                        labelText: "Name",
-                        contentPadding: EdgeInsets.symmetric(
-                          horizontal: 10,
-                        ),
-                        hintStyle: TextStyle(fontSize: 12),
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0,
-                    vertical: 20,
-                  ),
-                  child: Container(
-                    height: 55.0,
-                    child: TextFormField(
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.phone,
-                      decoration: const InputDecoration(
-                        labelText: "Phone",
-                        contentPadding: EdgeInsets.symmetric(
-                          horizontal: 10,
-                        ),
-                        hintStyle: TextStyle(fontSize: 12),
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0,
-                    vertical: 20,
-                  ),
-                  child: Container(
-                    height: 55.0,
-                    child: TextFormField(
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.text,
-                      decoration: const InputDecoration(
-                        labelText: "Address",
-                        contentPadding: EdgeInsets.symmetric(
-                          horizontal: 10,
-                        ),
-                        hintStyle: TextStyle(fontSize: 12),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+  void showCustomBttomSheet() {
+    Get.bottomSheet(
+      Container(
+        height: Get.height * 0.8,
+        decoration: const BoxDecoration(
+          color: AppConstant.appWhiteColor,
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(16),
           ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppConstant.appMainColor,
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0,
+                      vertical: 20,
+                    ),
+                    child: Container(
+                      height: 55.0,
+                      child: TextFormField(
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.name,
+                        decoration: const InputDecoration(
+                          labelText: "Name",
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 10,
+                          ),
+                          hintStyle: TextStyle(fontSize: 12),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0,
+                      vertical: 20,
+                    ),
+                    child: Container(
+                      height: 55.0,
+                      child: TextFormField(
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.phone,
+                        decoration: const InputDecoration(
+                          labelText: "Phone",
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 10,
+                          ),
+                          hintStyle: TextStyle(fontSize: 12),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0,
+                      vertical: 20,
+                    ),
+                    child: Container(
+                      height: 55.0,
+                      child: TextFormField(
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.text,
+                        decoration: const InputDecoration(
+                          labelText: "Address",
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 10,
+                          ),
+                          hintStyle: TextStyle(fontSize: 12),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-            onPressed: () {},
-            child: const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.0),
-              child: Text(
-                "Place Order",
-                style: TextStyle(
-                  color: AppConstant.appWhiteColor,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppConstant.appMainColor,
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+              ),
+              onPressed: () async {
+                if (nameController.text.trim() != "" &&
+                    phoneController.text.trim() != "" &&
+                    addressController.text.trim() != "") {
+                  String name = nameController.text.trim();
+                  String phone = phoneController.text.trim();
+                  String address = addressController.text.trim();
+
+                  String customerToken = await getCustomerDeviceToken();
+
+                  // place order service
+                  placeOrder(
+                      context: context,
+                      customerName: name,
+                      customerPhone: phone,
+                      customerAddress: address,
+                      customerToken: customerToken);
+                } else {
+                  print("Please fill all details ");
+                }
+              },
+              child: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text(
+                  "Place Order",
+                  style: TextStyle(
+                    color: AppConstant.appWhiteColor,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ),
-    backgroundColor: AppConstant.appTransparentBackgroundColor,
-    isDismissible: true,
-    enableDrag: true,
-    elevation: 6,
-  );
+      backgroundColor: AppConstant.appTransparentBackgroundColor,
+      isDismissible: true,
+      enableDrag: true,
+      elevation: 6,
+    );
+  }
 }
