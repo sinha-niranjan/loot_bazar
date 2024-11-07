@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:loot_bazar/screens/auth-ui/welcome_screen.dart';
+import 'package:loot_bazar/screens/user-panel/all_orders_screen.dart';
 import 'package:loot_bazar/utils/app_constant.dart';
 
 class DrawerWidget extends StatefulWidget {
@@ -96,26 +97,30 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(
+            Padding(
+              padding: const EdgeInsets.symmetric(
                 horizontal: 10.0,
               ),
               child: ListTile(
                 titleAlignment: ListTileTitleAlignment.center,
-                title: Text(
+                title: const Text(
                   "orders",
                   style: TextStyle(
                     color: AppConstant.appWhiteColor,
                   ),
                 ),
-                leading: Icon(
+                leading: const Icon(
                   Icons.shopping_bag,
                   color: AppConstant.appWhiteColor,
                 ),
-                trailing: Icon(
+                trailing: const Icon(
                   Icons.arrow_forward,
                   color: AppConstant.appWhiteColor,
                 ),
+                onTap: () {
+                  Get.back();
+                  Get.to(() => const AllOrdersScreen());
+                },
               ),
             ),
             const Padding(

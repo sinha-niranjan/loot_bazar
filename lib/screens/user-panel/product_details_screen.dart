@@ -9,6 +9,7 @@ import 'package:loot_bazar/models/cart_model.dart';
 import 'package:loot_bazar/models/product_model.dart';
 import 'package:loot_bazar/screens/user-panel/cart_screen.dart';
 import 'package:loot_bazar/utils/app_constant.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final ProductModel productModel;
@@ -217,7 +218,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                     borderRadius: BorderRadius.circular(25.0),
                                   ),
                                   child: TextButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      sendMessageOnWhatsApp(
+                                          productModel: widget.productModel);
+                                    },
                                     child: const Text(
                                       'WhatsApp',
                                       style: TextStyle(
@@ -261,6 +265,22 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             ),
           ),
         ));
+  }
+
+  static Future<void> sendMessageOnWhatsApp(
+      {required ProductModel productModel}) async {
+    final number = "+916202421430";
+    final String message =
+        "Hey, I found this product on your website: ${productModel.productName}\n\n Price: ${productModel.isSale ? productModel.salePrice : productModel.fullPrice}\n\n Description: ${productModel.productDescription}\n\n";
+
+    final url =
+        Uri.parse('https://wa.me/$number?text=${Uri.encodeComponent(message)}');
+
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url, mode: LaunchMode.externalApplication);
+    } else {
+      throw 'Could not launch $url ';
+    }
   }
 
   // check product exist or not
