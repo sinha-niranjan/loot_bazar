@@ -164,6 +164,11 @@ class _AllOrdersScreenState extends State<AllOrdersScreen> {
                             ),
                             trailing: orderModel.status == true
                                 ? ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: AppConstant.appMainColor,
+                                      foregroundColor:
+                                          AppConstant.appWhiteColor,
+                                    ),
                                     onPressed: () {
                                       showDialog(
                                         context: context,
@@ -171,7 +176,11 @@ class _AllOrdersScreenState extends State<AllOrdersScreen> {
                                             orderModel: orderModel),
                                       );
                                     },
-                                    child: const Text('Review'),
+                                    child: const Text(
+                                      'Review',
+                                      style: TextStyle(
+                                          color: AppConstant.appWhiteColor),
+                                    ),
                                   )
                                 : const SizedBox.shrink(),
                           ),

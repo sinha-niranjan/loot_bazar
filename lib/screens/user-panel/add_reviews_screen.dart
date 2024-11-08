@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:loot_bazar/models/order_model.dart';
+import 'package:loot_bazar/models/review_model.dart';
 import 'package:loot_bazar/utils/app_constant.dart';
 
 class AddReviewsDialog extends StatefulWidget {
@@ -24,6 +27,7 @@ class _AddReviewsDialogState extends State<AddReviewsDialog> {
         style: TextStyle(color: AppConstant.appMainColor),
       ),
       content: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -69,11 +73,33 @@ class _AddReviewsDialogState extends State<AddReviewsDialog> {
         ElevatedButton(
           style: ElevatedButton.styleFrom(
               backgroundColor: AppConstant.appMainColor),
-          onPressed: () {
+          onPressed: () async {
+            Navigator.of(context).pop();
+            EasyLoading.show(status: "Please wait...");
             String feedback = feedbackController.text.trim();
-            print(feedback);
-            print(productRating);
-            Navigator.of(context).pop(); // Close the dialog
+
+            ReviewModel reviewModel = ReviewModel(
+              customerName: widget.orderModel.customerName,
+              customerPhone: widget.orderModel.customerPhone,
+              customerDeviceToken: widget.orderModel.customerDeviceToken,
+              customerId: widget.orderModel.customerId,
+              feedback: feedback,
+              rating: productRating.toString(),
+              createdAt: DateTime.now(),
+            );
+
+            try {
+              await FirebaseFirestore.instance
+                  .collection('products')
+                  .doc(widget.orderModel.productId)
+                  .collection('reviews')
+                  .doc(widget.orderModel.customerId)
+                  .set(reviewModel.toMap());
+            } catch (e) {
+              EasyLoading.showError("Failed to add review");
+            } finally {
+              EasyLoading.dismiss();
+            }
           },
           child: const Text(
             'Submit',
