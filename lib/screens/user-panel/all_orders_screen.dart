@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loot_bazar/controllers/cart_price_controller.dart';
 import 'package:loot_bazar/models/order_model.dart';
+import 'package:loot_bazar/screens/user-panel/add_reviews_screen.dart';
 import 'package:loot_bazar/utils/app_constant.dart';
 
 class AllOrdersScreen extends StatefulWidget {
@@ -127,46 +128,53 @@ class _AllOrdersScreenState extends State<AllOrdersScreen> {
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(0, 10.0, 0, 10.0),
                           child: ListTile(
-                              leading: CircleAvatar(
-                                backgroundColor:
-                                    AppConstant.appSecondaryTextColor,
-                                backgroundImage: NetworkImage(
-                                  orderModel.productImages[0],
+                            leading: CircleAvatar(
+                              backgroundColor:
+                                  AppConstant.appSecondaryTextColor,
+                              backgroundImage: NetworkImage(
+                                orderModel.productImages[0],
+                              ),
+                            ),
+                            title: Text(
+                              orderModel.productName,
+                            ),
+                            subtitle: Row(
+                              children: [
+                                Text(
+                                  'Rs.${orderModel.productTotalPrice.toString()}',
+                                  style: const TextStyle(
+                                      color: AppConstant.appSecondaryTextColor),
                                 ),
-                              ),
-                              title: Text(
-                                orderModel.productName,
-                              ),
-                              subtitle: Row(
-                                children: [
-                                  const Text(
-                                    "Price: \$",
-                                    style: TextStyle(
-                                        color: AppConstant.appMainColor),
-                                  ),
-                                  Text(
-                                    orderModel.productTotalPrice.toString(),
-                                    style: const TextStyle(
-                                        color:
-                                            AppConstant.appSecondaryTextColor),
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  orderModel.status != true
-                                      ? const Text(
-                                          "Pending..... ",
-                                          style: TextStyle(
-                                            color: AppConstant.appGreenColor,
-                                          ),
-                                        )
-                                      : const Text(
-                                          "Delivered..... ",
-                                          style: TextStyle(
-                                              color: AppConstant.appRedColor),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                orderModel.status != true
+                                    ? const Text(
+                                        "Pending..... ",
+                                        style: TextStyle(
+                                          color: AppConstant.appGreenColor,
                                         ),
-                                ],
-                              )),
+                                      )
+                                    : const Text(
+                                        "Delivered ",
+                                        style: TextStyle(
+                                            color: AppConstant.appRedColor),
+                                      ),
+                              ],
+                            ),
+                            trailing: orderModel.status == true
+                                ? ElevatedButton(
+                                    onPressed: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) => AddReviewsDialog(
+                                            orderModel: orderModel),
+                                      );
+                                    },
+                                    child: const Text('Review'),
+                                  )
+                                : const SizedBox.shrink(),
+                          ),
                         ),
                       ),
                     ],
